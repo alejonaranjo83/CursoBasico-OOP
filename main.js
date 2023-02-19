@@ -63,10 +63,10 @@ natalia.age += 1 //como si hubiera cumplido años
 
 
 
-// Prototipos con la sintaxis de "clases"... en realidad son prototipos pero con una sintaxis más amigable:
+// Prototipos con la sintaxis de "clases"... en realidad son prototipos pero con una sintaxis más amigable para algunas personas.:
 
 class Student2 { //Aquí creo la clase
-    constructor(name, age, cursosAprobados, tipo) {
+    constructor(name, age, cursosAprobados, tipo) {//De esta manera debo especificar todos los parámetros q están en el constructor al crear un elemento
         this.name = name;
         this.age = age;
         this.cursosAprobados = cursosAprobados;
@@ -87,16 +87,16 @@ const miguel = new Student2( //Aquí creo una instancia de esa clase
     "Instancia de clase con sintaxis de clase"
 ) 
 
-miguel.aprobarCurso("Curso de Tableu"); //Añado info a un atributo de la instancia creada previamente
+miguel.aprobarCurso("Curso de Tableau"); //Añado info a un atributo de la instancia creada previamente
 
 
 
 
 
-// ROR: un patrón en programación q me permite recibir un objeto y crear otro a partir del mismo. Así puedo tener parámetros opcionales q no siempre tienen q tener todos los objetos.
+// ROR: un patrón en programación q me permite recibir un objeto y retorna otro objeto a partir del mismo. Así puedo tener parámetros opcionales q no siempre tienen q tener todos los objetos.
 
 class Student3 { //Aquí creo la clase con el patrón ROR
-    constructor({
+    constructor({ //Este es el objeto con los parámetros q tendrá el objeto
         name, 
         age, 
         cursosAprobados = [], //Puedo definir valores por defecto, en este caso un array vacío
@@ -130,4 +130,168 @@ const jacinto = new Student3({
     //     "Curso básico de Javascript",
     //     "Curso práctica de Javascript",
     // ]
+})
+
+
+
+
+
+
+
+// APLICANDO VENTAJAS de POO:
+
+// Si usara objetos literales, necesitaría muchas líneas de código difícil de escalar y hacer mantenimiento (hacer lo mismo cada vez q cree un objeto):
+const alejo1 = {
+    name: "Alejandro",
+    username: "alejonaranjo83",
+    points: 100,
+    socialMedia: {
+        twitter: "alejon",
+        instagram: "alenara",
+        facebook: undefined,
+    },
+    approvedCourses: [
+        "Curso Definitivo de HTML y CSS",
+        "Curso Práctico de HTML y CSS",
+    ],
+    learningPaths: [
+        {
+            name: "Escuela de Desarrollo Web",
+            courses: [
+                "Curso Definitivo de HTML y CSS",
+                "Curso Práctico de HTML y CSS",
+                "Curso de Responsive Design",
+            ]
+        },
+        {
+            name: "Escuela de Videojuegos",
+            courses: [
+                "Curso de Introducción a la producción de Videojuegos",
+                "Curso de Unreal Engine",
+                "Curso de Unity",
+            ]
+        },
+    ]
+}
+
+const jaime1 = {
+    name: "Miguel",
+    username: "miguelon",
+    points: 8000,
+    socialMedia: {
+        twitter: "miguelon",
+        instagram: "migueloni",
+        facebook: undefined,
+    },
+    approvedCourses: [
+        "Curso DataBusiness",
+        "Curso DataViz",
+    ],
+    learningPaths: [
+        {
+            name: "Escuela de Desarrollo Web",
+            courses: [
+                "Curso Definitivo de HTML y CSS",
+                "Curso Práctico de HTML y CSS",
+                "Curso de Responsive Design",
+            ]
+        },
+        {
+            name: "Escuela de Data Science",
+            courses: [
+                "Curso DataBusiness",
+                "Curso DataViz",
+                "Curso de Tableau",
+            ]
+        },
+    ]
+}
+
+// En cambio, si uso POO, puedo transformar esos objetos en clases y ahí sí, crear instancias de esos prototipos. Al principio, para definir la clase me toma tiempo y espacio, pero después cuando creo instancias de la misma, todo fluye más rápido y con más control.
+class StudentPOO {
+    constructor({
+        name,
+        email,
+        username,
+        twitter = undefined, //esto es para q ese parámetro sea opcional
+        instagram = undefined,
+        facebook = undefined,
+        approvedCourses = [],
+        learningPaths = [],
+    }) {
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.socialMedia = {
+            twitter,
+            instagram,
+            facebook,
+        };
+        this.approvedCourses = approvedCourses;
+        this.learningPaths = learningPaths;
+    }
+}
+
+// Aquí incluso crearé las rutas de aprendizaje con sus cursos correspondientes a través de otra clase:
+class learningPath {
+    constructor({
+        name,
+        courses = [],
+    }) {
+        this.name = name;
+        this.courses = courses;
+    }
+}
+
+// Creo las instancias de esa clase:
+const escuelaWeb = new learningPath({
+    name: "Escuela de Desarrollo Web",
+    courses: [
+        "Curso Definitivo de HTML y CSS",
+        "Curso Práctico de HTML y CSS",
+        "Curso de Responsive Design",
+    ]
+});
+
+
+const escuelaData = new learningPath({
+    name: "Escuela de Data Science",
+    courses: [
+        "Curso DataBusiness",
+        "Curso DataViz",
+        "Curso de Tableau",
+    ],
+});
+
+const escuelaVgs = new learningPath({
+    name: "Escuela de Videojuegos",
+    courses: [
+        "Curso de Introducción a la producción de Videojuegos",
+        "Curso de Unreal Engine",
+        "Curso de Unity",
+    ],
+});
+
+
+// Aquí es donde uso todo lo creado previamente:
+const alejo2 = new StudentPOO({
+    name: "Alejandro",
+    username: "alejonaranjo83",
+    email: "alejon@email.com",
+    twitter: "alejon",
+    learningPaths: [
+        escuelaWeb, //Aquí le estoy pasando la información de la otra clase que creé para las rutas de aprendizaje
+        escuelaVgs,
+    ]
+})
+
+const miguel2 = new StudentPOO({
+    name: "Miguel",
+    username: "miguelon",
+    email: "miguel@email.com",
+    instagram: "miguelon",
+    learningPaths: [
+        escuelaWeb,
+        escuelaData,
+    ]
 })
