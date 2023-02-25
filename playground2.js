@@ -40,3 +40,46 @@
 // Output
 
 // 'Curso de Programación Básica'
+
+
+// export class Course {
+class Course {
+    constructor({
+      name,
+      classes = [],
+    }) {
+      this._name = name;
+      this.classes = classes;
+    }
+  
+    get name() {
+      // Tu código aquí 👈
+      return this._name;
+    }
+  
+    set name(nuevoNombrecito) {
+      // Tu código aquí 👈
+      if (typeof nuevoNombrecito === `string`){
+        this._name = nuevoNombrecito
+      } else {
+        console.error("el nombre debe ser una string")
+      }
+    }
+  }
+
+
+
+
+  // Input
+
+const courseName = "curso de programación básica"
+// const courseName = 123234234
+
+const nombreMaysuculas = new Course({
+    name: courseName,
+})
+nombreMayusculas.name
+
+// Output
+
+// 'Curso de Programación Básica'

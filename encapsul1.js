@@ -3,7 +3,7 @@ class Course {
     constructor({
         name,
     }) {
-        this._name = name; //Pilar 2 = ENCAPSULAMIENTO. Llego a acuerdo con equipo para q no llamen ese atributo (los q tienen: _ ).
+        this._name = name; //Pilar 2 = ENCAPSULAMIENTO. Llego a acuerdo con equipo para q no llamen ese atributo (los q tienen: _ ). Eso indica que el atributo es privado... indica q ciertas clases o atributos no deben ser modificadas o accedidos directamente desde fuera de la clase
     }
 
     // continua encapsulamiento, usando "getters" y "setters". Creo un método para esto:

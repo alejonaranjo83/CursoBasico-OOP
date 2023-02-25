@@ -1,4 +1,4 @@
-import { PlatziClass } from "./encapsul2.mjs"; // Aquí estoy usando un archivo en el q tengo configurado lo q quiero hacer, pero sin que el usuario vea el código del mismo
+import { PlatziClass } from "./encapsul2.mjs"; // I´m using here a file in which I setted something to be done, avoiding the user to read the code of it
 
 const clase67 = new PlatziClass ({
     name: "JavaScript: orientado a objetos, basado en prototipos",

@@ -12,7 +12,7 @@ function videoStop(id) {
     console.log("Pausamos la url " + urlSecreta)
 }
 
-export class PlatziClass {
+export class PlatziClass { //This class will be imported in other file: module.mjs
     constructor({
         name,
         videoID,
