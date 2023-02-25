@@ -1,7 +1,7 @@
 // Code from class 9 onwards
 // Four pillars of object-oriented programming
 
-// ABSTRACCION: me evita tener q repetir cosas
+// Pilar 1 = ABSTRACCION: me evita tener q repetir cosas
 
 // Pueden haber cosas que se repitan, por lo cual crearé clases para cada cosa
 class Course {
@@ -12,11 +12,24 @@ class Course {
         lessons = [],
         comments = [],
     }) {
-        this.name = name;
+        this._name = name; //Pilar 2 = ENCAPSULAMIENTO. Llego a acuerdo con equipo para q no llamen ese atributo (los q tienen: _ ).
         this.description = description;
         this.teacher = teacher;
         this.lessons = lessons;
         this.comments = comments;
+    }
+
+    // continua encapsulamiento, usando "getters" y "setters". Creo un método para esto:
+    get name() {
+        return this._name;
+    }
+
+    set name(nuevoNombre) {
+        if(nuevoNombre === "Curso malo de programación básica") { //evitar q hagan esto
+            console.error("Lo que intentas hacer no es posible");
+        } else {
+            this._name = nuevoNombre;
+        }
     }
 }
 
@@ -155,6 +168,10 @@ const cursoProgBasica = new Course({
     lessons: [l1, l2 , l3],
     comments: [c1, c3, c2],
 });
+
+// Trabajando con getters y setters:
+cursoProgBasica.name = "Curso gratis" //esto permite cambiar el nombre dle curso
+cursoProgBasica.name = "Curso malo de programación básica" //no me permite hacer esto pues le puse restricción y me saca error
 
 const cursoDefinitivoHTML = new Course({
     name: "Curso Definitivo de HTML y CSS",
