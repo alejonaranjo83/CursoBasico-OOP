@@ -48,7 +48,7 @@ class Course {
       name,
       classes = [],
     }) {
-      this._name = name;
+      this.name = name;
       this.classes = classes;
     }
   
@@ -59,10 +59,15 @@ class Course {
   
     set name(nuevoNombrecito) {
       // Tu código aquí 👈
-      if (typeof nuevoNombrecito === `string`){
-        this._name = nuevoNombrecito
-      } else {
+      if (typeof nuevoNombrecito !== "string" || nuevoNombrecito === " "){ // if the value is not a string or is empty, then...
         console.error("el nombre debe ser una string")
+      } else {
+        nuevoNombrecito = nuevoNombrecito.trim(); // eliminating possible empty spaces at the beggining or the end of the complete string 
+        const words = nuevoNombrecito.split(" "); // words it´s an array that contains each word of the received argument, separated by a blank space
+        const capitalized = words.map(word => {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }); //capitalized is an array that has all the elements from words, but with the first letter capitalized. In his interior, the "map()" method goes trough each element, takes the first letter of the word ("chartAt(0)""), converts it to capitol letter ("toUpperCase()"") and then join the rest of the word with the "slice" method
+        this._name = capitalized.join(" ") //the "join" method joins all words separated by a space
       }
     }
   }
@@ -78,8 +83,46 @@ const courseName = "curso de programación básica"
 const nombreMaysuculas = new Course({
     name: courseName,
 })
-nombreMayusculas.name
+nombreMayusculas._name
 
 // Output
 
 // 'Curso de Programación Básica'
+
+
+
+
+
+// Errors from Platzi
+// Should keep property name intact if is an empty string
+// Should return the course title trimming empty spaces at beginning and ending
+
+
+
+// SLN DE PLATZI
+export class Course {
+  constructor({
+    name,
+    classes = [],
+  }) {
+    this.name = name;
+    this.classes = classes;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  set name(nuevoNombrecito) {
+    if (typeof nuevoNombrecito === "string") {
+      nuevoNombrecito = nuevoNombrecito.trim()
+      if (nuevoNombrecito.length !== 0) {
+        let words = nuevoNombrecito.split(" ")
+        let nuevoNombrecitoMayusculas = words.map((word) => {
+          return word[0]?.toUpperCase() + word.substring(1);
+        }).join(" ")
+        this._name = nuevoNombrecitoMayusculas
+      }
+    }
+  }
+}
