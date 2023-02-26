@@ -66,7 +66,7 @@ class Course {
         const words = nuevoNombrecito.split(" "); // words it´s an array that contains each word of the received argument, separated by a blank space
         const capitalized = words.map(word => {
           return word.charAt(0).toUpperCase() + word.slice(1);
-        }); //capitalized is an array that has all the elements from words, but with the first letter capitalized. In his interior, the "map()" method goes trough each element, takes the first letter of the word ("chartAt(0)""), converts it to capitol letter ("toUpperCase()"") and then join the rest of the word with the "slice" method
+        }); //capitalized is an array that has all the elements from words, but with the first letter capitalized. In his interior, the "map()" method goes through each element, takes the first letter of the word ("chartAt(0)""), converts it to capitol letter ("toUpperCase()"") and then join the rest of the word with the "slice" method
         this._name = capitalized.join(" ") //the "join" method joins all words separated by a space
       }
     }
