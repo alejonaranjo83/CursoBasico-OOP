@@ -1,4 +1,5 @@
 // In this script I use things previously programmed in other files. I will be experimenting with the INHERITANCE pillar (pillar #3 of OOP). It can be seen in the "Student" Class.
+// Also, I´m going to explore the POLYMORPHISM (pillar #4 of OOP). It can be seen in the "Comment" class as well as "Student" and "TeacherStudent".
 
 
 
@@ -92,10 +93,22 @@ class Lesson {
 class Comment {
     constructor({
         commentID,
-        commentContent,
+        content,
+        studentName,
+        studentRole = "estudiante",
+        
     }) {
         this.commentID = commentID;
-        this.commentContent = commentContent;
+        this.content = content;
+        this.studentName = studentName;
+        this.studentRole = studentRole;
+        this.likes = 0;
+    }
+
+    publicar() {
+        console.log(`${this.studentName} (${this.studentRole})`);
+        console.log(`${this.likes} likes`);
+        console.log(this.content);
     }
 }
 
@@ -124,6 +137,14 @@ class Student {
         };
         this.approvedCourses = approvedCourses;
         this.learningPaths = learningPaths;
+    }
+
+    publicarCommentario(commentContent) {
+        const comment = new Comment({ //creating an instance of another class, inside a different class
+            content: commentContent,
+            studentName: this.name,
+        });
+        comment.publicar();
     }
 }
 
@@ -161,6 +182,25 @@ class ExpertStudent extends Student {
     }
     approveCourse(newCourse) {
         this.approvedCourses.push(newCourse); // this type of student can take as many courses as he/she wants to take
+    }
+}
+
+class TeacherStudent extends Student {
+    constructor(props) {
+        super(props);
+    }
+    approveCourse(newCourse) {
+        this.approvedCourses.push(newCourse); // this type of student can take as many courses as he/she wants to take
+    }
+
+    // Here I´ll be using the polymorphism pillar, rewriting an original definition:
+    publicarCommentario(commentContent) {
+        const comment = new Comment({
+            content: commentContent,
+            studentName: this.name,
+            studentRole: "profesor", //rewriting the default value on "student"
+        });
+        comment.publicar();
     }
 }
 
@@ -420,7 +460,15 @@ const miguel = new BasicStudent({
     ]
 })
 
+const freddyStudent = new TeacherStudent({
+    name: "Freddy Vega",
+    username: "frenetico",
+    email: "freddy2@mail.com",
+    instagram: "freddiervega",
+})
+
 // Testing the script written above:
+
 // alejo.approvedCourses // in the start, alejo doesn´t have any course approved
 // alejo.approveCourse(cursoProgBasica) // I´m going to say that alejo has approved this course
 // alejo.approvedCourses // Checking that the object alejo has been already modified
@@ -430,3 +478,11 @@ const miguel = new BasicStudent({
 // miguel.approveCourse(cursoResponsive) // then he approved this one
 // miguel.approvedCourses // Checking that the object miguel has been already modified
 // miguel.approveCourse(cursoPracticoHTML) // trying to approve a course that is forbidden because of the suscription that miguel has. It shows the following error: Lo sentimos Miguel, no puedes tomar cursos en ingles.
+
+
+
+// Testing a method from the "Comment" class, mixed with differente configurations, depending on the role of the student:
+
+// alejo.publicarCommentario("Me encantó el curso")
+// miguel.publicarCommentario("Me gustó pero no tanto")
+// freddyStudent.publicarCommentario("Excelente! me encanta esta clase :)")
