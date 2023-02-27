@@ -1,20 +1,20 @@
-// In this script I use things previously programmed in other files. I will be experimenting with the INHERITANCE pillar (pillar #4 of OOP). It can be seen in the "Student" Class.
+// In this script I use things previously programmed in other files. I will be experimenting with the INHERITANCE pillar (pillar #3 of OOP). It can be seen in the "Student" Class.
 
 
 
-function videoPlay(id) {
-    const urlSecreta = "https://platziultrasecreto.com" + id;
+// function videoPlay(id) {
+//     const urlSecreta = "https://platziultrasecreto.com" + id;
 
-    console.log("Se está reproduciendo desde la url " + urlSecreta)
-}
+//     console.log("Se está reproduciendo desde la url " + urlSecreta)
+// }
 
-function videoStop(id) {
-    const urlSecreta = "https://platziultrasecreto.com" + id;
+// function videoStop(id) {
+//     const urlSecreta = "https://platziultrasecreto.com" + id;
 
-    console.log("Pausamos la url " + urlSecreta)
-}
+//     console.log("Pausamos la url " + urlSecreta)
+// }
 
-class PlatziClass { //This class will be imported in other file: module.mjs
+class PlatziClass {
     constructor({
         name,
         videoID,
@@ -102,7 +102,7 @@ class Comment {
 
 
 
-// To learn about the inheritance pillar, this will be the "mother Class"
+// To learn about the inheritance pillar, this will be the "mother Class"... "super prototype"
 class Student {
     constructor({
         name,
@@ -133,8 +133,8 @@ class FreeStudent extends Student { // extends specify from which class will be 
         super(props); //with this I´m calling the properties from the "mother class"
     }
 
-    approveCourse(newCourse) {
-        if(newCourse.isFree) { //"isFree" it´s a property that I create to indicate if the course is free
+    approveCourse(newCourse) { // method to approve a course for a student
+        if(newCourse.isFree) { //"isFree" it´s a property that I can create on each coures to indicate if the course is free
             this.approvedCourses.push(newCourse);
         } else {
             console.warn(`Lo sentimos ${this.name}, no puedes tomar este curso. Revisa los detalles de tu suscripción. En este momento solo puedes tomar cursos gratuitos.`);
@@ -160,7 +160,7 @@ class ExpertStudent extends Student {
         super(props);
     }
     approveCourse(newCourse) {
-        this.approvedCourses.push(newCourse);
+        this.approvedCourses.push(newCourse); // this type of student can take as many courses as he/she wants to take
     }
 }
 
@@ -178,8 +178,12 @@ class learningPath {
 
 
 
-// Utilizo las clases creadas previamente, para crear objetos que posteriormente harán parte de otros objetos:
 
+
+
+// Using previously defined classes, to create objects that will in turn become part of other objects:
+
+// TEACHERs
 const freddyV = new Teacher({
     name: "Freddy Vega",
     bio: "Pendiente de generar descripción en su biografía",
@@ -222,6 +226,8 @@ const marceRod = new Teacher({
     id: "maRo",
 })
 
+
+// LESSONs
 const l1 = new Lesson({
     lessonName: "Lesson A",
     lessonIndex: "01",
@@ -253,6 +259,7 @@ const l6 = new Lesson({
 })
 
 
+//COMMENTs
 const c1 = new Comment({
     commentID: "positive comment",
     commentContent: "This a wonderful course",
@@ -270,8 +277,8 @@ const c3 = new Comment({
 
 
 
-
-// Creo una instancia de la clase (un objeto) para evitar la repetición y facilitar mantenimiento.
+// COURSEs
+// Creating instances of a class (an object), which are composed of other objects. This avoids repetition and facilitates maintance
 const cursoProgBasica = new Course({
     name: "Curso gratis de Programación Básica",
     description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, veniam? Dolor, repudiandae iste! Minima quae sapiente labore veritatis sed ullam, ut sit corrupti saepe eligendi reprehenderit consectetur veniam hic non.",
@@ -356,7 +363,7 @@ const cursoUnity = new Course({
 
 
 
-// Creo las instancias de la clase Learning Path:
+// LEARNING PATHs instances
 const escuelaWeb = new learningPath({
     name: "Escuela de Desarrollo Web",
     courses: [
@@ -388,7 +395,9 @@ const escuelaVgs = new learningPath({
 });
 
 
-// When creating each student, I´m going to specify it´s category according to their suscription. They will no longer be an instance from the "mother class" but from one of his childs
+
+// STUDENTs
+// When creating each student, I´m going to specify it´s category according to their suscription. They will no longer be an instance from the "mother class" but from one of its childs
 const alejo = new FreeStudent({
     name: "Alejandro",
     username: "alejonaranjo83",
@@ -415,9 +424,9 @@ const miguel = new BasicStudent({
 // alejo.approvedCourses // in the start, alejo doesn´t have any course approved
 // alejo.approveCourse(cursoProgBasica) // I´m going to say that alejo has approved this course
 // alejo.approvedCourses // Checking that the object alejo has been already modified
-// alejo.approveCourse(cursoDefinitivoHTML) // trying to approve a course that is forbidden because of the suscription that alejo has. It appears the following error: Lo sentimos Alejandro, no puedes tomar este curso. Revisa los detalles de tu suscripción. En este momento solo puedes tomar cursos gratuitos.
+// alejo.approveCourse(cursoDefinitivoHTML) // trying to approve a course that is forbidden because of the suscription that alejo has. It shows the following error: Lo sentimos Alejandro, no puedes tomar este curso. Revisa los detalles de tu suscripción. En este momento solo puedes tomar cursos gratuitos.
 
 // miguel.approveCourse(cursoProgBasica) // miguel approved this course
 // miguel.approveCourse(cursoResponsive) // then he approved this one
 // miguel.approvedCourses // Checking that the object miguel has been already modified
-// miguel.approveCourse(cursoPracticoHTML) // trying to approve a course that is forbidden because of the suscription that miguel has. It appears the following error: Lo sentimos Miguel, no puedes tomar cursos en ingles.
+// miguel.approveCourse(cursoPracticoHTML) // trying to approve a course that is forbidden because of the suscription that miguel has. It shows the following error: Lo sentimos Miguel, no puedes tomar cursos en ingles.
